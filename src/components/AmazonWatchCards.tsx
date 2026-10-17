@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { FlipkartDetails } from './FlipkartDetails';
-import { Check, ScanLine, Star } from 'lucide-react';
+import { ScanLine, Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { cart, prices } from '@/lib/cart';
 import { watches, type WatchTone } from '@/lib/watches';
@@ -44,20 +44,21 @@ export function WatchProductCard({ tone }: { tone: WatchTone }) {
       {m.badge && <span className="az-badge">{m.badge}</span>}
       <Link to="/watches/$watchId" params={{ watchId: w.id }} className="az-img"><img src={w.image} alt={w.name} loading="lazy" /></Link>
       <div className="az-body">
-        <Link to="/watches/$watchId" params={{ watchId: w.id }} className="az-title">Private Flight {w.name} — {w.finish} Men's Luxury Watch, {m.specs.join(', ')}</Link>
-        <div className="az-rating"><span>{m.rating}</span><Stars value={m.rating} /><span className="az-muted">({usd(m.reviews)})</span></div>
-        <p className="az-muted az-small">{m.bought} bought in past month</p>
+        <p className="az-eyebrow">Private Flight · {w.finish}</p>
+        <Link to="/watches/$watchId" params={{ watchId: w.id }} className="az-title">{w.name}</Link>
+        <p className="az-specs">{m.specs.join(' · ')}</p>
         <div className="az-price-row">
-          <span className="az-off">-{off}%</span>
-          <span className="az-price"><sup>$</sup>{usd(price)}<sup>00</sup></span>
+          <span className="az-price">${usd(price)}</span>
+          <s className="az-muted">${usd(m.list)}</s>
+          <span className="az-off">−{off}%</span>
         </div>
-        <p className="az-muted az-small">List: <s>${usd(m.list)}.00</s></p>
-        <p className="az-prime"><Check size={14} /> prime</p>
-        <p className="az-small">FREE delivery <strong>{tomorrow}</strong></p>
-        {m.stock && <p className="az-stock">Only {m.stock} left in stock - order soon.</p>}
-        <button type="button" className="az-add" onClick={() => { cart.add(w.id); toast.success(`${w.name} added to cart`); }}>Add to cart</button>
-        <Link to="/watches/$watchId" params={{ watchId: w.id }} search={{ tryon: true }} className="az-tryon"><ScanLine size={14} /> Virtual try-on</Link>
-        <button type="button" className="az-more" onClick={() => setMore(true)}>More details</button>
+        <div className="az-rating"><Stars value={m.rating} /><span>{m.rating}</span><span className="az-muted">({usd(m.reviews)})</span></div>
+        <p className="az-small az-muted">Delivered by {tomorrow}{m.stock ? ` · only ${m.stock} left` : ''}</p>
+        <button type="button" className="az-add" onClick={() => { cart.add(w.id); toast.success(`${w.name} added to cart`); }}>Add to bag</button>
+        <div className="az-links">
+          <Link to="/watches/$watchId" params={{ watchId: w.id }} search={{ tryon: true }} className="az-tryon"><ScanLine size={14} /> Try on</Link>
+          <button type="button" className="az-more" onClick={() => setMore(true)}>Details</button>
+        </div>
         <FlipkartDetails tone={w.id} open={more} onOpenChange={setMore} list={m.list} rating={m.rating} reviews={m.reviews} specs={m.specs} />
       </div>
     </article>

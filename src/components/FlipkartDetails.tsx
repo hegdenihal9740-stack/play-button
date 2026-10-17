@@ -60,60 +60,57 @@ export function FlipkartDetails({
       <DialogContent className="fk-panel">
         <div className="fk-grid">
           <div className="fk-left">
-            <div className="fk-gallery">
-              <div className="fk-thumbs">{imgs.map((src, i) => (
-                <button type="button" key={src} className={`fk-thumb ${i === idx ? 'is-active' : ''}`} onMouseEnter={() => setIdx(i)} onClick={() => setIdx(i)}>{isVid(src) ? <span className="fk-thumb-vid">3D</span> : <img src={src} alt="" />}</button>
-              ))}</div>
-              {isVid(imgs[idx]) ? <div className="fk-imgbox"><div className="fk-3d" onClick={(e) => e.stopPropagation()}><WatchScene key={w.id} tone={w.id} interactive /></div></div> : <button type="button" className="fk-imgbox" onClick={() => setFull(true)} aria-label="Open full image view"><img src={imgs[idx]} alt={w.name} /><span className="fk-zoomhint"><ZoomIn size={14} /> Click to see full view</span></button>}
-            </div>
-            <div className="fk-actions">
-              <button type="button" className="fk-cart" onClick={() => { cart.add(w.id); toast.success(`${w.name} (${dial}) added to cart`); }}><ShoppingCart size={18} /> ADD TO CART</button>
-              <button type="button" className="fk-buy" onClick={() => { cart.add(w.id); toast.success('Proceeding to checkout'); onOpenChange(false); }}><Zap size={18} /> BUY NOW</button>
-            </div>
+            <span className="fk-index">{String(idx + 1).padStart(2, '0')} / {String(imgs.length).padStart(2, '0')}</span>
+            {isVid(imgs[idx]) ? <div className="fk-imgbox"><div className="fk-3d" onClick={(e) => e.stopPropagation()}><WatchScene key={w.id} tone={w.id} interactive /></div></div> : <button type="button" className="fk-imgbox" onClick={() => setFull(true)} aria-label="Open full image view"><img src={imgs[idx]} alt={w.name} /><span className="fk-zoomhint"><ZoomIn size={13} /> View full</span></button>}
+            <div className="fk-thumbs">{imgs.map((src, i) => (
+              <button type="button" key={src} className={`fk-thumb ${i === idx ? 'is-active' : ''}`} onClick={() => setIdx(i)}>{isVid(src) ? <span className="fk-thumb-vid">3D</span> : <img src={src} alt="" />}</button>
+            ))}</div>
           </div>
           <div className="fk-right">
-            <p className="fk-brand">Private Flight</p>
-            <DialogTitle className="fk-title">{w.name} {w.details[0]} {w.finish} Analog Watch - For Men</DialogTitle>
+            <p className="fk-brand">Private Flight · {w.finish}</p>
+            <DialogTitle className="fk-title">{w.name}</DialogTitle>
+            <p className="fk-subtitle">{w.details[0]} · analog automatic</p>
             <div className="fk-rating-row">
-              <span className="fk-rating">{rating} <Star size={12} fill="currentColor" /></span>
-              <span className="fk-muted">{usd(reviews * 3)} Ratings & {usd(reviews)} Reviews</span>
+              <Star size={13} fill="currentColor" /><span>{rating}</span><span className="fk-muted">— {usd(reviews)} reviews</span>
             </div>
-            <p className="fk-special">Special price</p>
             <div className="fk-price-row">
               <span className="fk-price">${usd(price)}</span>
               <s className="fk-muted">${usd(list)}</s>
-              <span className="fk-off">{off}% off</span>
+              <span className="fk-off">Save {off}%</span>
             </div>
             <div className="fk-section">
-              <h4>Dial Size</h4>
+              <h4>Case size <span className="fk-muted">{dial}</span></h4>
               <div className="fk-sizes">{dialSizes.map((d) => (
-                <button type="button" key={d} className={`fk-size ${d === dial ? 'is-active' : ''}`} onClick={() => setDial(d)}>{d}</button>
+                <button type="button" key={d} className={`fk-size ${d === dial ? 'is-active' : ''}`} onClick={() => setDial(d)}>{d.replace(' mm', '')}</button>
               ))}</div>
             </div>
-            <div className="fk-section">
-              <h4>Available offers</h4>
-              <ul className="fk-offers">
-                <li><Tag size={14} /> <b>Bank Offer</b> 5% Unlimited Cashback on Credit Card</li>
-                <li><Tag size={14} /> <b>Special Price</b> Get extra {off}% off (price inclusive of discount)</li>
-                <li><Tag size={14} /> <b>Partner Offer</b> Free engraving on orders this week</li>
-              </ul>
+            <div className="fk-actions">
+              <button type="button" className="fk-buy" onClick={() => { cart.add(w.id); toast.success('Proceeding to checkout'); onOpenChange(false); }}><Zap size={16} /> Buy now</button>
+              <button type="button" className="fk-cart" onClick={() => { cart.add(w.id); toast.success(`${w.name} (${dial}) added to cart`); }}><ShoppingCart size={16} /> Add to bag</button>
             </div>
             <div className="fk-perks">
-              <span><Truck size={16} /> Free Delivery</span>
-              <span><RotateCcw size={16} /> 7 Days Return</span>
-              <span><ShieldCheck size={16} /> 2 Yr Warranty</span>
+              <span><Truck size={18} />Complimentary delivery</span>
+              <span><RotateCcw size={18} />7-day returns</span>
+              <span><ShieldCheck size={18} />2-year warranty</span>
+            </div>
+            <div className="fk-section">
+              <h4>The story</h4>
+              <DialogDescription className="fk-desc">{w.description}</DialogDescription>
             </div>
             <div className="fk-section">
               <h4>Highlights</h4>
               <ul className="fk-highlights">{[...w.details, ...specs].map((d) => <li key={d}>{d}</li>)}</ul>
             </div>
             <div className="fk-section">
-              <h4>Description</h4>
-              <DialogDescription className="fk-desc">{w.description}</DialogDescription>
+              <h4>Privileges</h4>
+              <ul className="fk-offers">
+                <li><Tag size={14} /> 5% cashback on credit cards</li>
+                <li><Tag size={14} /> Complimentary engraving this week</li>
+              </ul>
             </div>
             <div className="fk-section">
               <h4>Specifications</h4>
-              <table className="fk-table"><tbody>{table.map(([k, v]) => <tr key={k + v}><td>{k}</td><td>{v}</td></tr>)}</tbody></table>
+              <dl className="fk-table">{table.map(([k, v]) => <div key={k + v}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
             </div>
           </div>
         </div>

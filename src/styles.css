@@ -957,3 +957,15 @@ body:has(.watch-page) { background: var(--midnight-sky); }
 @media (prefers-reduced-motion: reduce) { .fk-motion img { animation: none !important; } }
 .fk-3d { width: 100%; height: 100%; min-height: 300px; position: relative; }
 .fk-3d .watch-scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Feature callout slide */
+.fk-imgbox.is-feat { padding: 0; cursor: default; }
+.fk-feat { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; background: var(--fk-soft); }
+.fk-feat-disc { position: absolute; width: 85%; aspect-ratio: 1; right: -15%; top: -10%; border-radius: 50%; background: color-mix(in oklch, var(--fk-gold) 18%, var(--fk-bg)); }
+.fk-feat-main { position: absolute; right: 2%; top: 50%; transform: translateY(-50%); width: 58% !important; max-height: 90% !important; object-fit: contain; mix-blend-mode: multiply; }
+.fk-feat-list { position: absolute; left: 5%; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-evenly; }
+.fk-feat-list li { display: flex; flex-direction: column; align-items: center; gap: .3rem; width: 30cqw; max-width: 120px; text-align: center; font-family: "Cormorant Garamond", serif; font-size: .95rem; line-height: 1.1; color: var(--fk-ink); }
+.fk-feat-list li:nth-child(2) { margin-left: 18%; }
+.fk-feat-circle { width: 76px; height: 76px; border-radius: 50%; border: 2px solid var(--fk-ink); background-size: 320%; background-color: var(--fk-bg); box-shadow: 0 6px 16px -8px oklch(0 0 0 / 35%); }
+@media (min-width: 768px) { .fk-feat-circle { width: 96px; height: 96px; } }
+.fk-full-stage .fk-feat { max-width: min(80vh, 100%); }

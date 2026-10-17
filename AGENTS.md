@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep try-on crown direction aligned with wrist-to-fingers: rotate the whole photo layer in the static showcase, and preserve the shared arm-axis attachment in live 3D, so dial and bracelet cannot diverge.

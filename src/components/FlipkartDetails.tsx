@@ -69,7 +69,7 @@ export function FlipkartDetails({
           <div className="fk-right">
             <p className="fk-brand">Private Flight · {w.finish}</p>
             <DialogTitle className="fk-title">{w.name}</DialogTitle>
-            <p className="fk-subtitle">{w.details[0]} dial, analog automatic</p>
+            <p className="fk-subtitle">{w.details[0]} · analog automatic</p>
             <div className="fk-rating-row">
               <Star size={13} fill="currentColor" /><span>{rating}</span><span className="fk-muted">— {usd(reviews)} reviews</span>
             </div>
